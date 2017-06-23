@@ -1,5 +1,5 @@
 @echo off
-rem 'ï∂éöÉRÅ[Éh:Shift JIS---sincd.20170622-fujito'
+rem 'UNICODE:Shift-JIS---sincd.20170622-fujito'
 
 setlocal
 set nam1=17_07
