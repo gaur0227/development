@@ -2,8 +2,8 @@
 rem 'UNICODE:Shift-JIS---sincd.20170622-fujito'
 
 setlocal
-set nam1=17_07
-set nam2=201707
+set /p nam1="数値1を入力してください"
+set /p nam2="数値2を入力してください"
 
 
 echo "ここからリネーム"
