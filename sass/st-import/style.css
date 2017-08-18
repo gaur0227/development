@@ -1,0 +1,29 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Google Reset */
+html {
+  width: 960;
+}
+
+/* Main Styles */
+@media query {
+  body {
+    width: 960px;
+  }
+}
+/* responsive Style */
+/*test*/
+.mt-1e {
+  margin-top: 1em;
+}
+
+.mt-1_5e {
+  margin-top: 1em;
+}
+
+/* Custom Style */
+
+/*# sourceMappingURL=style.css.map */
