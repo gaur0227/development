@@ -1,0 +1,28 @@
+$col-mg: 10px;
+$col-pd: 20px;
+
+@mixin col($nam,$col-mg,$col-pd) {
+  width: calc(100% * #{$nam} / 12 - #{$col-mg}*2);
+  margin:0 $col-mg 30px;
+  padding:$col-pd;
+  box-sizing: border-box;
+  background: #ee0;
+}
+
+@for $nam from 1 through 12{
+  .col-pc-#{$nam}{
+    @include col($nam,$col-mg,$col-pd);
+  }
+}
+@media screen and (max-width: 724px){
+  @for $nam from 1 through 12{
+    .col-sp-#{$nam}{
+      @include col($nam,$col-mg,$col-pd);
+    }
+  }
+}
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+}

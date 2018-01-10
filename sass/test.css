@@ -1,0 +1,5 @@
+.test{
+  width: calc(100% * 7 / 12);
+  height: 50px;
+  background: #000;
+}
