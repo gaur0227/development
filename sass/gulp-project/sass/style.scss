@@ -1,2 +1,6 @@
-@import "compass"
-.sample{background: ;#fff;}
+@import "compass";
+.sample{
+  content: "test";
+  background: #ff1;
+  color: red;
+}
