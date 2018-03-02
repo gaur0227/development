@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "gulp-compass": "^2.1.0",
+    "gulp-plumber": "^1.2.0",
     "gulp-webserver": "^0.9.1"
   },
   "scripts": {

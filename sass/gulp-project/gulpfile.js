@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     compass = require('gulp-compass'),
+    plumber = require('gulp-plumber'),
     webserver = require('gulp-webserver');
 
 
@@ -15,18 +16,19 @@ gulp.task('webserver', function () {
 
 // compass
 gulp.task('compass', function(){
-    gulp.src('sass/**/*.scss')
+    gulp.src('/assets/sass/**/*.scss')
+    .pipe(plumber())
     .pipe(compass({
         config_file: 'config.rb',
         comments: false,
-        css: 'css/',
-        sass: 'sass/'
+        css: '/assets/css/',
+        sass: '/assets/sass/'
     }));
 });
 
 //watch
 gulp.task('watch', function(){
-  gulp.watch('sass/*.scss',['compass']);
+  gulp.watch('/assets/sass/*.scss',['compass']);
 });
 
 gulp.task('default', ['watch','webserver']);
