@@ -1,0 +1,179 @@
+// Copy Right 2018 FujitoTag
+// http://fujito0227.com
+// Base Ruhru SMACSS + MindBEMding
+/*
+
+オブジェクトは３段階で構成される。
+ - Lv1. module
+ - Lv2. console
+ - Lv3. container
+
+moduleオブジェクトは、単体で動くオブジェクトの最小単位とする。
+（ボタンモジュールや、タグモジュール・アイコンモジュールなど）
+カードモジュールのように他のモジュールを配下に置く親モジュールも存在する。
+
+``
+module-cardBoxe
+  module-imgBox
+  module-textBox
+``
+基本構成は同じだが、形式の違うオブジェクト(border-radiusで円形にするなど)を増やす場合は、クラス名に[--modifier]を追加する。
+``
+.btnBox__Ghost --> .btnBox__Ghost--circle
+``
+
+*/
+
+
+/*---------------------------------------------
+  File Name "Template Thema SCSS"
+-----------------------------------------------*/
+
+
+/* compass / Reset / Base / Frame-work / Plugin
+   ========================================================================== */
+@import "compass";
+// @import "compass/typography";
+// @import "compass/utilities";
+@import "compass/reset/";
+
+
+/* Code / Function
+   ========================================================================== */
+
+/*---------------------------------------------
+  ================VARIABLE=====================
+-----------------------------------------------*/
+/*---------------------------------------------
+  z-index
+-----------------------------------------------*/
+/*---------------------------------------------
+  media-query
+ -----------------------------------------------*/
+/*---------------------------------------------
+  color
+-----------------------------------------------*/
+$neutral : (
+ w    : #fff,
+ ltGy : #dee4e7,
+ mGy  : #838383,
+ dkGy : #37474f,
+ Bk   : #222
+);
+
+@function GySc($name) {
+  $i : map-get($neutral,$name);
+  @return $i;
+}
+
+
+/*---------------------------------------------
+  ================FUNCTION=====================
+-----------------------------------------------*/
+@function gMap($name,$prf,$scr){
+  $i : map-get($name, $prf);
+  $i : nth($i,$scr);
+  @return $i;
+}
+@function get-color($name,$prf,$scr){
+  $i : map-get($name, $prf);
+  $i : nth($i,$scr);
+  @return $i;
+}
+@function gMap-col($prf){
+  $i : map-get($col,$prf);
+  $str1 : nth($i,1);
+  $str2 : nth($i,2);
+  @return $str1 $str2;
+}
+// @debug gMap-col(row-pc);
+//@debug gMap($col,mg,2) //...10px
+
+@function col-calc($num,$name){
+  $margin : gMap($col,#{$name},2);
+  $i: calc(100% * #{$num} / 12 - #{$margin} * 2);
+  @return $i;
+}
+
+
+.sample{
+  @include clearfix;/*clearfix*/
+  @include border-radius(.3px);/*border-radius*/
+  @include text-shadow;/*text-shadow*/
+  @include background-size;/*background-size*/
+  @include background-clip(border-box);/*background-clip*/
+  @include ellipsis;/*ellipsis*/
+  @include background(linear-gradient(white, #a00));/*gradient*/
+  @include opacity(0.8);/*opacity*/
+  @include inline-block;/*inline-block*/
+  @include font-face("Source Code Pro", font-files("sourcecodepro.ttf", "sourcecodepro.otf", "sourcecodepro.eot"));/*font-face*/
+  @include min-width(100px);/*min-width*/
+  @include contrasted(#ccc);/*色の対比*/
+}
+
+
+/* Layout / Grid
+   ========================================================================== */
+
+/* Module [MindBEMding]
+   ========================================================================== */
+@mixin btn__Ghost{
+  @include inline-block;
+  padding: 8px 25px 8px 25px;
+  text-align: center;
+  border: 1px solid GySc(mGy);
+  color: GySc(mGy);
+  &:hover{
+    color: GySc(w);
+    background: GySc(mGy);
+    };
+  text-decoration: none;
+  @include transition-duration(.2s);
+}
+
+.module-btnBox{
+  margin-bottom: 30px;
+  .btnBox__Ghost{
+    @include btn__Ghost();
+    margin-left: 15px;
+    &--circle{
+      @extend .btnBox__Ghost;
+      padding: 40px;
+      border-radius: 10em;
+    }
+    &:nth-child(1){
+      margin-left: 0;
+    }
+  }
+}
+
+
+
+/* State / JavaScripd_Use-Class
+   ========================================================================== */
+
+
+
+/* Thema / Color
+   ========================================================================== */
+/*---------------------------------------------
+  Thema Name "Neutral Blue"
+-----------------------------------------------*/
+@mixin btn-ghost-color(
+$main-color: GySc(mGy),
+$hover-font: GySc(w)
+) {
+  border: 1px solid $main-color;
+  color: $main-color;
+  &:hover{
+    color: $hover-font;
+    background: $main-color;
+    };
+}
+
+.module-btnBox{
+  .btnBox__Ghost{
+    &.--red{@include btn-ghost-color(red);}
+    &.--blue{@include btn-ghost-color(blue);}
+  }
+}
