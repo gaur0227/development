@@ -1,0 +1,412 @@
+@import "compass";
+/* code / function
+  ========================================================================== */
+//color_code
+$aqua      : #0093ff;
+$lightning : #d8ff12;
+$main-green: #55b573;
+$dark-gray:  #2f2f2f;
+$medium-gray:#797979;
+$light: ivory;;
+
+$bk-size: 18px;// extend .bk-sizeに影響
+$setMedia:(//media query
+  f0 : 75em,
+  f1 : 61.25em,
+  f2 : 48em,
+  f3 : 47.9375em
+);
+@function MED($num) {
+  $i : map-get($setMedia, $num);
+  @return $i;
+}
+
+$col:(//grid
+  mg-no : (0,0),
+  mg-pc : (0,12.5px),
+  mg-sp : (0,0px),
+  pd-pc : (0,20px),
+  pd-sp : (0,20px),
+  row-pc: (0,-12.5px)
+);
+// @debug map-get($col,mg);
+@function gMap($name,$prf,$scr){
+  $i : map-get($name, $prf);
+  $i : nth($i,$scr);
+  @return $i;
+}
+@function gMap-col($prf){
+  $i : map-get($col,$prf);
+  $str1 : nth($i,1);
+  $str2 : nth($i,2);
+  @return $str1 $str2;
+}
+// @debug gMap-col(row-pc);
+//@debug gMap($col,mg,2) //...10px
+
+
+
+/* bace
+  ========================================================================== */
+.bk-size{background-size: $bk-size}
+
+// リンク矢印の制御
+.c-button--style_line.c-button--color_white>a:hover>span{
+  @extend .bk-size;
+}
+.c-button--style_line.c-button--color_key-color>a>span{
+  @extend .bk-size;
+}
+.c-button--style_line.c-button--color_key-color>a:hover>span{
+  @extend .bk-size;
+}
+.c-service-index-panel__link>span{
+  @extend .bk-size;
+}
+.c-common-announcement-module__button>span{
+  @extend .bk-size;
+}
+.c-common-contact-module__seminar-link>a{
+  @extend .bk-size;
+}
+.c-common-announcement-module__link--type_seminar {
+  background-image:url(../img/main/other_01.png);
+  background-size: auto 130px;
+}
+.c-common-announcement-module__link--type_seo{
+  background-image:url(../img/main/other_02.png);
+  background-size: auto 130px;
+}
+
+
+.sample{color: #fff;}
+
+
+// リンクアイコンの制御
+@media only screen and (min-width: MED(f2)){
+  .c-service-index-panel__icon img{
+    width: 130px;
+  }
+
+}
+@media only screen and (min-width: 61.25em){
+  .l-header__global-nav>li>a {
+    height: auto;
+    padding: 0;}
+}
+
+.c-blog-index-panel-01__link{align-items: center;}
+@media only screen and (max-width: 47.9375em){
+  .c-case-index-panel__text-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media only screen and (min-width: 48em){
+  .l-common-pagetop-link {
+    bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 47.9375em){
+  .p-home-main-visual {
+    background-image: url(../img/main/main_sp.jpg);
+  }
+}
+@media only screen and (max-width: 47.9375em){
+  .l-common-pagetop-link span {
+    background: none;
+    padding-left: 0;
+  }
+}
+
+/* layout
+  ========================================================================== */
+@mixin media($width){
+  @media only screen and (max-width: $width){//$width以上の場合適応
+    @content;//@include media(MED($num)){style}
+  }
+}
+
+//<=========== 以下grid_system ===========>
+
+@for $num from 1 through 12{
+  .l-pc-#{$num}{
+    width:calc(100% * #{$num} / 12);
+    box-sizing: border-box;
+  }
+}
+
+@include media(MED(f2)){
+  @for $num from 1 through 12{
+    .l-sp-#{$num}{
+      width:calc(100% * #{$num} / 12);
+    }
+  }
+}
+
+
+.l-row{
+  display: flex;
+  flex-wrap: wrap;
+  margin: gMap-col(row-pc);
+}
+
+.l-container{
+  padding:{
+    top: 75px;
+    right: 6%;
+    bottom: 80px;
+    left: 6%;
+  }
+  @include media(MED(f3)){
+    background: #000;
+  }
+}
+
+//<=========== grid_system end ===========>
+
+.pc{
+  display: none;
+  @include media(MED(f1)){//PC表示のスタイル
+    display: inline-block;
+  }
+}
+
+
+.l-cont-p{
+  $height: 180px;
+  .p-home-main-visual{
+    height: $height!important;
+  }
+  .p-home-main-copy-area{
+    height: $height!important;
+  }
+}
+.l-common-pagetop-link{}
+/* module
+  ========================================================================== */
+
+
+@mixin gradient-text($angle: 45deg, $color: #f82, $amount: 35%) {
+  color: $color;
+  background: -webkit-linear-gradient($angle, $color, adjust-hue($color, $amount));
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  display: inline-block;
+}
+
+
+.ta-c{text-align: center;}
+.ta-r{text-align: right;}
+.sp-ta-c{
+@include media(MED(f3)){
+  text-align: center;
+  }
+};
+
+
+.leadText-block--center{
+  margin-bottom: 30px;
+  font-size: auto;
+  text-align: center;
+}
+.leadText-block--pc-center{
+  @extend .leadText-block--center;
+  @include media(768px){
+    text-align: left;
+  };
+}
+.leadText-block--pc-left{
+  margin:{
+    left: auto;
+    right: auto;
+    bottom: 35px;
+  }
+  max-width: 650px;
+  text-align: left;
+}
+
+.module-mapArea{
+  margin-bottom: 0;
+}
+
+.module-cardBlock{
+  max-width: 620px;
+  margin:{
+    right: auto;
+    bottom: 30px;
+    left: auto;
+  };
+  padding: 30px;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 0 10px #ccc;
+  .cardBlock__titleText{
+    &::before{
+      content: "──";
+      opacity: .8;
+      margin-right: 5px;
+    }
+    margin-bottom: 10px;
+    font-size: 1.45rem;
+    color: $dark-gray;
+  }
+  .cardBlock__leadText{
+    line-height: 1.95rem;
+    color: $medium-gray;
+  }
+}
+
+.module-contTitle{
+  &::before{
+    content: "──";
+    opacity: .8;
+    margin-right: 5px;
+  }
+  font-size: 1.45rem;
+  color: $dark-gray;
+  &__left{
+    @extend .module-contTitle;
+    max-width: 650px;
+    text-align: left;
+    margin:{
+      left: auto;
+      right: auto;
+    }
+  }
+}
+
+
+.titleBlock--inner{
+  margin-bottom: 35px;
+  &__titleText{
+
+    &::before{
+      content: "──";
+      opacity: .8;
+    }
+    font-size: 1.28rem;
+  }
+  &__leadText{
+    line-height: 1.96rem;
+    color: $medium-gray;
+  }
+  &::after{
+    content: "▼";
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 1.8rem;
+    @include gradient-text(120deg, $main-green, 30%);
+  }
+  &:last-of-type{
+    &::after{content: "";}
+  }
+}
+
+
+
+
+.module-listBlock{
+  padding: 0;
+  list-style-type: none;
+  .listBlock__child{
+    display: flex;
+    line-height: 1.9rem;
+    margin-bottom: 25px;
+    &::before{
+      content: "!";
+      display: flex;
+      min-width: 20px;
+      height: 20px;
+      margin-right: 15px;
+      margin-top: .3rem;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      background: $main-green;
+      border-radius: 2px;
+    }
+  }
+}
+
+
+.module-blocklist{
+  padding: 0;
+  .blocklist__child{
+    list-style: none;
+    &__listArea{
+      list-style: none;
+      padding: 15px;
+      li{margin-bottom: 15px;}
+    }
+  }
+}
+
+
+.module-tableBlock{
+  .tableBlock-body{
+    margin:{
+      left: auto;
+      right: auto;
+      bottom: 30px;
+    }
+    width: 100%;
+    max-width: 620px;
+  }
+
+  .tCell{
+    padding: 8px 10px;
+    background: $main-green;
+    color: white;
+  }
+  .cCell{
+    padding: 8px 15px;
+    text-align: left;
+    background: rgba($main-green, 0.15);
+  }
+  .ta-r{
+    text-align: right;
+    @include media(575px){
+      text-align: justify;
+    };
+  }
+  .ta-c{text-align: center;}
+  .child__flex-center{
+    .tCell{
+      @extend .tCell;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .cCell{
+      @extend .cCell;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .l-row{margin-bottom: 1px;}
+}
+.pc-wi40{
+  width: 40%;
+  @include media(575px){
+    width: auto;
+  };
+}
+
+
+/* state
+  ========================================================================== */
+.js-custom_filter-height{max-height: 90px!important;}
+
+/* thema
+  ========================================================================== */
+.aqua{background:$aqua;}
+.lightning{background:$lightning;}
+.text-white{color: white;}
+.bk-fill-green{
+  background: $main-green;
+  color: white;
+}
